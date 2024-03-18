@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const StyledCards = styled.main`
     display:flex;
-    justify-content: space-evenly;
+    justify-content: space-evenly; 
     flex-wrap: wrap;
 `
 

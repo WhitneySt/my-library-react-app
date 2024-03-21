@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledFigure = styled.figure`
@@ -12,8 +13,9 @@ const StyledFigure = styled.figure`
 `;
 
 const Card = ({ book }) => {
+  const navigate = useNavigate()
   return (
-    <StyledFigure>
+    <StyledFigure onClick={() => navigate(`/book/${book.title}`)}>
       <img src={book.cover} alt={book.title} />
     </StyledFigure>
   );

@@ -10,3 +10,13 @@ export const getBooks = async () => {
         return [];
     }
 }
+
+export const getABook = async (bookId) => {
+    try {
+        const { data } = await axios.get(endpoints.bookById(bookId));
+        return data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}

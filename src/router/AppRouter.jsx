@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
@@ -7,6 +7,10 @@ import Layout from "../components/Layout/Layout";
 import Details from "../pages/Details/Details";
 import axios from "axios";
 import { useCallback } from "react";
+
+//1. Crear el contexto
+
+export const AppContext = createContext(null);
 
 const AppRouter = () => {
 
@@ -49,24 +53,27 @@ const AppRouter = () => {
   }, [fetchMovie]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route
-            index
-            element={<Home books={books} setBooks={setBooks} user={user} />}
-          />
-          <Route
-            path="/"
-            element={<Home books={books} setBooks={setBooks} user={user} />}
-          >
-            <Route path="book/:title" element={<Details books={books} />} />
+    //2. Provisión del contexto
+    <AppContext.Provider value={{ user, setUser }}>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route
+              index
+              element={<Home books={books} setBooks={setBooks} />}
+            />
+            <Route
+              path="/"
+              element={<Home books={books} setBooks={setBooks}/>}
+            >
+              <Route path="book/:title" element={<Details books={books} />} />
+            </Route>
+            <Route path="login" element={<Login/>} />
+            <Route path="register" element={<Register />} />
           </Route>
-          <Route path="login" element={<Login setUser={setUser} />} />
-          <Route path="register" element={<Register />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </AppContext.Provider>
   );
 };
 

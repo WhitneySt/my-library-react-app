@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import useForm from "../../hooks/useForm";
 import { getUserByEmailAndPassword } from "../../services/userServices";
+import { AppContext } from "../../router/AppRouter";
 
 const StyledForm = styled.form`
   display: flex;
@@ -32,9 +33,10 @@ const INITIALVALUE = {
   password: "",
 };
 
-const Login = ({ setUser }) => {
+const Login = () => {
   const navigate = useNavigate();
   const [form, handleChange, reset] = useForm(INITIALVALUE);
+  const { setUser } = useContext(AppContext);
 
   // const [form, setForm] = useState(INITIALVALUE);
 

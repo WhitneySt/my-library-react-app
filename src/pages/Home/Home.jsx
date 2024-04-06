@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getBooks } from "../../services/booksServices";
 import Card from "../../components/Card/Card";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
+import { AppContext } from "../../router/AppRouter";
 
 const StyledCards = styled.main`
   display: flex;
@@ -12,7 +13,11 @@ const StyledCards = styled.main`
 // const URL_API = "http://localhost:3000/";
 // const idCineSeleccionado = 1;
 
-const Home = ({ books, setBooks, user = null }) => {
+const Home = ({ books, setBooks }) => {
+  
+  //3. Consumir el contexto
+  const { user } = useContext(AppContext);
+
   const [cineSeleccionado, setCineSeleccionado] = useState({});
 
   // const obtenerCineSeleccionado = async (id) => {
